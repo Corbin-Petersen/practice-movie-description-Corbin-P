@@ -14,8 +14,9 @@ public class Main {
         String title = scanner.nextLine();
         System.out.println("Enter rating (1-5)");
         int rating = scanner.nextInt();
+        String query = "Write a movie description for the movie " + title;
 
-        GenerateContentResponse description = client.models.generateContent("gemini-2.0-flash-001", title, null);
+        GenerateContentResponse description = client.models.generateContent("gemini-2.0-flash-001", query, null);
 
         System.out.println(description.text());
     }

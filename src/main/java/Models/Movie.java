@@ -1,6 +1,7 @@
 package Models;
 
 
+import com.google.genai.types.GenerateContentResponse;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
@@ -12,13 +13,21 @@ public class Movie {
 
     @Column(name = "title")
     private String title;
-
     @Column(name = "rating")
     private int rating;
-
     @Column(name = "description")
     private String description;
 
+    // Constructors
+    public Movie(){};
+
+    public Movie(String title, int rating, String description) {
+        this.title = title;
+        this.rating = rating;
+        this.description = description;
+    }
+
+    // Getters & Setters
     public int getId() {
         return id;
     }
@@ -52,6 +61,8 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "TITLE: " + title + "\n" + "RATING: " + rating + " stars\n" + "DESCRIPTION: " + description;
+        return "<p><b>TITLE</b>: " + title + "</p>>" +
+                "<p><b>RATING</b>: " + rating + " stars</p>>" +
+                "<p><b>DESCRIPTION</b>: " + description + "</p>";
     }
 }

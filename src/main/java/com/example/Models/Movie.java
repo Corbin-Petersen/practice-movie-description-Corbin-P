@@ -1,7 +1,6 @@
-package Models;
+package com.example.Models;
 
 
-import com.google.genai.types.GenerateContentResponse;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 

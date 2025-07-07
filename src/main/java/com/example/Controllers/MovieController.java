@@ -1,7 +1,7 @@
-package Controllers;
+package com.example.Controllers;
 
-import Models.Movie;
-import Repositories.MovieRepository;
+import com.example.Models.Movie;
+import com.example.Repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.google.genai.Client;

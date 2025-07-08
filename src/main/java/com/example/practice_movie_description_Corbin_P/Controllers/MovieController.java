@@ -24,7 +24,7 @@ public class MovieController {
         List<Movie> allMovies = movieRepository.findAll();
         if (allMovies != null) {
             for (Movie movie : allMovies) {
-                movieList.append("<li><a href='/details/").append(movie.getId()).append("'>").append(movie).append("</a></li>");
+                movieList.append("<li><a href='/details/").append(movie.getId()).append("'>").append(movie.getTitle()).append("</a></li>");
             }
             return """
                     <html>
@@ -69,7 +69,7 @@ public class MovieController {
     @PostMapping("/add")
     public String processAddMovieForm(@RequestParam(value="title") String title, @RequestParam(value="rating") int rating) {
         Client client = new Client();
-        String query = "Write a movie description for the movie " + title;
+        String query = "In 255 characters or less, write a movie synopsis for the movie " + title;
         GenerateContentResponse response = null;
         try {
             response = client.models.generateContent("gemini-2.0-flash-001", query, null);
@@ -106,6 +106,7 @@ public class MovieController {
                     "<p><b>ID:</b> " + movieId + "</p>" +
                     movieRepository.findById(movieId).orElse(null) +
                     """
+                    <p><a href='/'>Return to list of movies.</a></p>
                     </body>
                     </html>
                     """;

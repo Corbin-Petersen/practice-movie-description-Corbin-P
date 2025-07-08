@@ -64,8 +64,8 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "<p><b>TITLE</b>: " + title + "</p>>" +
-                "<p><b>RATING</b>: " + rating + " stars</p>>" +
+        return "<p><b>TITLE</b>: " + title + "</p>" +
+                "<p><b>RATING</b>: " + rating + " stars</p>" +
                 "<p><b>DESCRIPTION</b>: " + description + "</p>";
     }
 }

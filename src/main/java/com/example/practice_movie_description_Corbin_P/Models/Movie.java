@@ -1,11 +1,10 @@
-package com.example.Models;
-
+package com.example.practice_movie_description_Corbin_P.Models;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 public class Movie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,6 +18,11 @@ public class Movie {
 
     // Constructors
     public Movie(){};
+
+    public Movie(String title, int rating) {
+        this.title = title;
+        this.rating = rating;
+    }
 
     public Movie(String title, int rating, String description) {
         this.title = title;

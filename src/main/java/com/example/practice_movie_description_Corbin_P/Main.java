@@ -1,4 +1,4 @@
-package com.example;
+package com.example.practice_movie_description_Corbin_P;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

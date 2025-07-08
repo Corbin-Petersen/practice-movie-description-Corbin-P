@@ -60,6 +60,7 @@ public class MovieController {
                 <p>Enter the title and rating for a movie:</p>
                 <input type='text' name='title' placeholder='Title' />
                 <input type='text' name='rating' placeholder='Rating' />
+                <input type='text' name='genre' placeholder='Genre' />
                 <button type='submit'>Submit</button>
                 </form>
                 </body>
@@ -67,7 +68,7 @@ public class MovieController {
                 """;
     }
     @PostMapping("/add")
-    public String processAddMovieForm(@RequestParam(value="title") String title, @RequestParam(value="rating") int rating) {
+    public String processAddMovieForm(@RequestParam(value="title") String title, @RequestParam(value="rating") int rating, @RequestParam(value="genre") String genre) {
         Client client = new Client();
         String query = "In 255 characters or less, write a movie synopsis for the movie " + title;
         GenerateContentResponse response = null;
@@ -79,8 +80,7 @@ public class MovieController {
             throw new RuntimeException(e);
         }
         String description = response.text();
-        Movie newMovie = new Movie(title, rating);
-        newMovie.setDescription(description);
+        Movie newMovie = new Movie(title, rating, description, genre);
         movieRepository.save(newMovie);
         return """
                 <html>
@@ -97,28 +97,30 @@ public class MovieController {
     @GetMapping("/details/{movieId}")
     public String displayMovieDetails(@PathVariable(value="movieId") int movieId) {
         Movie currentMovie = movieRepository.findById(movieId).orElse(null);
-        if ( currentMovie != null) {
-            return """
-                    <html>
-                    <body>
-                    <h3>Movie Details</h3>
-                    """ +
-                    "<p><b>ID:</b> " + movieId + "</p>" +
-                    movieRepository.findById(movieId).orElse(null) +
-                    """
-                    <p><a href='/'>Return to list of movies.</a></p>
-                    </body>
-                    </html>
-                    """;
-        } else {
-            return """
-                    <html>
-                    <body>
-                    <h3>Movie Details</h3>
-                    <p>Movie not found. <a href='/'>Return to list of movies.</a></p>
-                    </body>
-                    </html>
-                    """;
+        StringBuilder starRating = new StringBuilder();
+        for (int i = 0; i < currentMovie.getRating(); i++) {
+            starRating.append("\u2B50");
         }
+        String movieGenre;
+        if (currentMovie.getGenre() == null) {
+            movieGenre = "not set";
+        } else {
+            movieGenre = currentMovie.getGenre();
+        }
+        return """
+                <html>
+                <body>
+                <h3>Movie Details</h3>
+                """ +
+                "<p><b>ID:</b> " + movieId + "</p>" +
+                "<p><b>TITLE:</b> " + currentMovie.getTitle() + "</p>" +
+                "<p><b>RATING:</b> " + starRating + "</p>" +
+                "<p><b>GENRE:</b> " + movieGenre + "</p>" +
+                "<p><b>DESCRIPTION:</b> " + currentMovie.getDescription() + "</p>" +
+                """
+                <p><a href='/'>Return to list of movies.</a></p>
+                </body>
+                </html>
+                """;
     }
 }

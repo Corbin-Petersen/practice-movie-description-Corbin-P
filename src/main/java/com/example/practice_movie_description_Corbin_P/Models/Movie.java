@@ -15,6 +15,8 @@ public class Movie {
     private int rating;
     @Column(name = "description")
     private String description;
+    @Column(name = "genre")
+    private String genre;
 
     // Constructors
     public Movie(){};
@@ -24,10 +26,11 @@ public class Movie {
         this.rating = rating;
     }
 
-    public Movie(String title, int rating, String description) {
+    public Movie(String title, int rating, String description, String genre) {
         this.title = title;
         this.rating = rating;
         this.description = description;
+        this.genre = genre;
     }
 
     // Getters & Setters
@@ -59,13 +62,21 @@ public class Movie {
         this.description = description;
     }
 
-    // Overrides
+    public String getGenre() {
+        return genre;
+    }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    // Overrides
 
     @Override
     public String toString() {
         return "<p><b>TITLE</b>: " + title + "</p>" +
                 "<p><b>RATING</b>: " + rating + " stars</p>" +
+                "<p><b>GENRE</b>: " + genre + "</p>" +
                 "<p><b>DESCRIPTION</b>: " + description + "</p>";
     }
 }
